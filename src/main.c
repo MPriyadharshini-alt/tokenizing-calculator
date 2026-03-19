@@ -1,14 +1,15 @@
 #include <stdio.h>
-#include "lexer.h"
+#include "eval.h"
 
 int main() {
-    const char *input = "123";
-    
-    Token token = get_next_token(&input);
+    char input[100];
 
-    if (token.type == TOKEN_NUMBER) {
-        printf("Number: %.0f\n", token.value);
-    }
+    printf("Enter expression: ");
+    fgets(input, sizeof(input), stdin);
+
+    double result = evaluate(input);
+
+    printf("Result: %.2f\n", result);
 
     return 0;
 }

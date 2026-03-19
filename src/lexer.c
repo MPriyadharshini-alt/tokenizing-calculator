@@ -1,37 +1,64 @@
-#include <stdio.h>
 #include <ctype.h>
 #include "lexer.h"
 
 Token get_next_token(const char **input) {
-    // Skip spaces
+
     while (**input == ' ') {
         (*input)++;
     }
 
-    // If number
+    // Handle numbers
     if (isdigit(**input)) {
-        double value = 0;
-
+        int num = 0;
         while (isdigit(**input)) {
-            value = value * 10 + (**input - '0');
+            num = num * 10 + (**input - '0');
             (*input)++;
         }
-
-        Token token;
-        token.type = TOKEN_NUMBER;
-        token.value = value;
+        Token token = {TOKEN_NUMBER, num};
         return token;
     }
 
-    // End of input
-    if (**input == '\0') {
-        Token token;
-        token.type = TOKEN_EOF;
+    // Handle +
+    if (**input == '+') {
+        (*input)++;
+        Token token = {TOKEN_PLUS, 0};
         return token;
     }
 
-    // Unknown character
-    Token token;
-    token.type = TOKEN_EOF;
-    return token;
+    // Handle -
+    if (**input == '-') {
+        (*input)++;
+        Token token = {TOKEN_MINUS, 0};
+        return token;
+    }
+
+    // Handle *
+    if (**input == '*') {
+        (*input)++;
+        Token token = {TOKEN_MULTIPLY, 0};
+        return token;
+    }
+
+    // Handle /
+    if (**input == '/') {
+        (*input)++;
+        Token token = {TOKEN_DIVIDE, 0};
+        return token;
+    }
+
+    // Handle (
+    if (**input == '(') {
+        (*input)++;
+        Token token = {TOKEN_LPAREN, 0};
+        return token;
+    }
+
+    // Handle )
+    if (**input == ')') {
+        (*input)++;
+        Token token = {TOKEN_RPAREN, 0};
+        return token;
+    }
+
+    return (Token){TOKEN_EOF, 0};
 }
