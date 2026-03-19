@@ -27,7 +27,7 @@ calc.exe    # Windows
 Run the calculator:
 
 ./calc       # Linux / Mac
-calc.exe     # Windows
+.\calc.exe     # Windows
 
 Example:
 
